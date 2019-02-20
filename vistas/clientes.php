@@ -1,21 +1,20 @@
 <?php
 session_start();
 if(isset($_SESSION['usuario'])){
-
+	require_once "menu.php";
 	?>
 
 
 	<!DOCTYPE html>
 	<html>
 	<head>
-		<title>clientes</title>
-		<?php require_once "menu.php"; ?>
+		<title></title>
 	</head>
 	<body>
-		<div class="container">
+		<div class="container-fluid">
 			<h1>Clientes</h1>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<form id="frmClientes">
 						<label>Nombre</label>
 						<input type="text" class="form-control input-sm" id="nombre" name="nombre">
@@ -33,7 +32,7 @@ if(isset($_SESSION['usuario'])){
 						<span class="btn btn-primary" id="btnAgregarCliente">Agregar</span>
 					</form>
 				</div>
-				<div class="col-sm-8">
+				<div class="col-sm-9">
 					<div id="tablaClientesLoad"></div>
 				</div>
 			</div>

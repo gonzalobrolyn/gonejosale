@@ -1,11 +1,11 @@
 
 
-	<?php 
+	<?php
 			require_once "../../clases/Conexion.php";
 			$c= new conectar();
 			$conexion=$c->conexion();
 
-			$sql="SELECT id_categoria,nombreCategoria 
+			$sql="SELECT id_categoria,nombreCategoria
 					FROM categorias";
 			$result=mysqli_query($conexion,$sql);
 	 ?>
@@ -14,9 +14,9 @@
 <table class="table table-hover table-condensed table-bordered" style="text-align: center;">
 	<caption><label>Categorias :D</label></caption>
 	<tr>
-		<td>Categoria</td>
-		<td>Editar</td>
-		<td>Eliminar</td>
+		<td><b>Categoria</b></td>
+		<td><b>Editar</b></td>
+		<td><b>Eliminar</b></td>
 	</tr>
 
 	<?php

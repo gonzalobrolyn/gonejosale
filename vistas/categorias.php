@@ -1,32 +1,35 @@
-<?php 
+
+<?php
 session_start();
 if(isset($_SESSION['usuario'])){
-
-	?>
-
+	require_once "menu.php";
+?>
 
 	<!DOCTYPE html>
 	<html>
 	<head>
-		<title>categorias</title>
-		<?php require_once "menu.php"; ?>
+		<title></title>
 	</head>
 	<body>
 
-		<div class="container">
-			<h1>Categorias</h1>
+		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-10"><h1>Categorias</h1></div>
+
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
 					<form id="frmCategorias">
-						<label>Categoria</label>
+						<label>Nueva Categoria</label>
 						<input type="text" class="form-control input-sm" name="categoria" id="categoria">
 						<p></p>
 						<span class="btn btn-primary" id="btnAgregaCategoria">Agregar</span>
 					</form>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-5">
 					<div id="tablaCategoriaLoad"></div>
 				</div>
+				<div class="col-sm-2"></div>
 			</div>
 		</div>
 
@@ -123,7 +126,7 @@ if(isset($_SESSION['usuario'])){
 		}
 
 		function eliminaCategoria(idcategoria){
-			alertify.confirm('¿Desea eliminar esta categoria?', function(){ 
+			alertify.confirm('¿Desea eliminar esta categoria?', function(){
 				$.ajax({
 					type:"POST",
 					data:"idcategoria=" + idcategoria,
@@ -137,12 +140,12 @@ if(isset($_SESSION['usuario'])){
 						}
 					}
 				});
-			}, function(){ 
+			}, function(){
 				alertify.error('Cancelo !')
 			});
 		}
 	</script>
-	<?php 
+	<?php
 }else{
 	header("location:../index.php");
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 	session_start();
 	require_once "../../clases/Conexion.php";
 
@@ -11,8 +11,8 @@
 	$cantidad=$_POST['cantidadV'];
 	$precio=$_POST['precioV'];
 
-	$sql="SELECT nombre,apellido 
-			from clientes 
+	$sql="SELECT nombre,apellido
+			from clientes
 			where id_cliente='$idcliente'";
 	$result=mysqli_query($conexion,$sql);
 
@@ -20,8 +20,8 @@
 
 	$ncliente=$c[1]." ".$c[0];
 
-	$sql="SELECT nombre 
-			from articulos 
+	$sql="SELECT nombre
+			from articulos
 			where id_producto='$idproducto'";
 	$result=mysqli_query($conexion,$sql);
 
@@ -32,7 +32,8 @@
 				$descripcion."||".
 				$precio."||".
 				$ncliente."||".
-				$idcliente;
+				$idcliente."||".
+				$cantidad;
 
 	$_SESSION['tablaComprasTemp'][]=$articulo;
 

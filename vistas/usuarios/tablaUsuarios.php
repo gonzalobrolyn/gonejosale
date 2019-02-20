@@ -1,5 +1,5 @@
-<?php 
-	
+<?php
+
 	require_once "../../clases/Conexion.php";
 	$c= new conectar();
 	$conexion=$c->conexion();
@@ -15,13 +15,13 @@
 
 
 <table class="table table-hover table-condensed table-bordered" style="text-align: center;">
-	<caption><label>Usuarios :)</label></caption>
+	<caption><label>Personal :)</label></caption>
 	<tr>
-		<td>Nombre</td>
-		<td>Apellido</td>
-		<td>Usuario</td>
-		<td>Editar</td>
-		<td>Eliminar</td>
+		<td><b>Nombre</b></td>
+		<td><b>Apellido</b></td>
+		<td><b>Usuario</b></td>
+		<td><b>Editar</b></td>
+		<td><b>Eliminar</b></td>
 	</tr>
 
 	<?php while($ver=mysqli_fetch_row($result)): ?>

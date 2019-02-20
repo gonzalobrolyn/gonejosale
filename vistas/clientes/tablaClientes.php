@@ -20,14 +20,14 @@
 	 <table class="table table-hover table-condensed table-bordered" style="text-align: center;">
 	 	<caption><label>Clientes :)</label></caption>
 	 	<tr>
-	 		<td>Nombre</td>
-	 		<td>Apellido</td>
-	 		<td>Direccion</td>
-	 		<td>Email</td>
-	 		<td>Telefono</td>
-	 		<td>RUC</td>
-	 		<td>Editar</td>
-	 		<td>Eliminar</td>
+	 		<td><b>Nombre</b></td>
+	 		<td><b>Apellido</b></td>
+	 		<td><b>Direccion</b></td>
+	 		<td><b>Email</b></td>
+	 		<td><b>Telefono</b></td>
+	 		<td><b>RUC</b></td>
+	 		<td><b>Editar</b></td>
+	 		<td><b>Eliminar</b></td>
 	 	</tr>
 
 	 	<?php while($ver=mysqli_fetch_row($result)): ?>

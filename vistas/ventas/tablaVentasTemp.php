@@ -1,10 +1,9 @@
-<?php 
+<?php
 
 	session_start();
 	//print_r($_SESSION['tablaComprasTemp']);
  ?>
 
- <h4>Hacer venta</h4>
  <h4><strong><div id="nombreclienteVenta"></div></strong></h4>
  <table class="table table-bordered table-hover table-condensed" style="text-align: center;">
  	<caption>
@@ -13,13 +12,13 @@
  		</span>
  	</caption>
  	<tr>
- 		<td>Nombre</td>
- 		<td>Descripcion</td>
- 		<td>Precio</td>
- 		<td>Cantidad</td>
- 		<td>Quitar</td>
+ 		<td><b>Nombre</b></td>
+ 		<td><b>Descripcion</b></td>
+ 		<td><b>Precio</b></td>
+ 		<td><b>Cantidad</b></td>
+ 		<td><b>Quitar</b></td>
  	</tr>
- 	<?php 
+ 	<?php
  	$total=0;//esta variable tendra el total de la compra en dinero
  	$cliente=""; //en esta se guarda el nombre del cliente
  		if(isset($_SESSION['tablaComprasTemp'])):
@@ -41,16 +40,17 @@
  		</td>
  	</tr>
 
- <?php 
+ <?php
  		$total=$total + $d[3];
  		$i++;
  		$cliente=$d[4];
  	}
- 	endif; 
+ 	endif;
  ?>
 
  	<tr>
- 		<td>Total de venta: <?php echo "$".$total; ?></td>
+		<td colspan="2">Total de venta:</td>
+ 		<td colspan="2"><?php echo "S/ ".$total; ?></td>
  	</tr>
 
  </table>

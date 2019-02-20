@@ -1,28 +1,29 @@
-<?php 
+<?php
 session_start();
 if(isset($_SESSION['usuario'])){
-
+	require_once "menu.php";
+	require_once "../clases/Conexion.php";
+	$c= new conectar();
+	$conexion=$c->conexion();
+	$sql="SELECT id_categoria,
+					 nombreCategoria
+			  from categorias";
+	$result=mysqli_query($conexion,$sql);
 	?>
-
 
 	<!DOCTYPE html>
 	<html>
 	<head>
-		<title>articulos</title>
-		<?php require_once "menu.php"; ?>
-		<?php require_once "../clases/Conexion.php"; 
-		$c= new conectar();
-		$conexion=$c->conexion();
-		$sql="SELECT id_categoria,nombreCategoria
-		from categorias";
-		$result=mysqli_query($conexion,$sql);
-		?>
+		<title></title>
 	</head>
 	<body>
-		<div class="container">
-			<h1>Articulos</h1>
+		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-8"><h1>Productos</h1></div>
+				<div class="col-sm-4" style="text-align: right"><a class="btn btn-info" href="categorias.php">Categorias</a> </div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
 					<form id="frmArticulos" enctype="multipart/form-data">
 						<label>Categoria</label>
 						<select class="form-control input-sm" id="categoriaSelect" name="categoriaSelect">
@@ -34,32 +35,34 @@ if(isset($_SESSION['usuario'])){
 						<label>Nombre</label>
 						<input type="text" class="form-control input-sm" id="nombre" name="nombre">
 						<label>Descripcion</label>
-						<input type="text" class="form-control input-sm" id="descripcion" name="descripcion">
+						<textarea class="form-control input-sm" id="descripcion" name="descripcion" rows="5"></textarea>
 						<label>Cantidad</label>
 						<input type="text" class="form-control input-sm" id="cantidad" name="cantidad">
-						<label>Precio</label>
-						<input type="text" class="form-control input-sm" id="precio" name="precio">
+						<label>Precio Base</label>
+						<input type="text" class="form-control input-sm" id="precioBase" name="precioBase">
+						<label>Precio Venta</label>
+						<input type="text" class="form-control input-sm" id="precioVenta" name="precioVenta">
 						<label>Imagen</label>
 						<input type="file" id="imagen" name="imagen">
 						<p></p>
 						<span id="btnAgregaArticulo" class="btn btn-primary">Agregar</span>
 					</form>
 				</div>
-				<div class="col-sm-8">
+				<div class="col-sm-9">
 					<div id="tablaArticulosLoad"></div>
 				</div>
 			</div>
 		</div>
 
 		<!-- Button trigger modal -->
-		
+
 		<!-- Modal -->
 		<div class="modal fade" id="abremodalUpdateArticulo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog modal-sm" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">Actualiza Articulo</h4>
+						<h4 class="modal-title" id="myModalLabel">Actualiza Producto</h4>
 					</div>
 					<div class="modal-body">
 						<form id="frmArticulosU" enctype="multipart/form-data">
@@ -67,7 +70,7 @@ if(isset($_SESSION['usuario'])){
 							<label>Categoria</label>
 							<select class="form-control input-sm" id="categoriaSelectU" name="categoriaSelectU">
 								<option value="A">Selecciona Categoria</option>
-								<?php 
+								<?php
 								$sql="SELECT id_categoria,nombreCategoria
 								from categorias";
 								$result=mysqli_query($conexion,$sql);
@@ -84,7 +87,7 @@ if(isset($_SESSION['usuario'])){
 							<input type="text" class="form-control input-sm" id="cantidadU" name="cantidadU">
 							<label>Precio</label>
 							<input type="text" class="form-control input-sm" id="precioU" name="precioU">
-							
+
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -105,7 +108,7 @@ if(isset($_SESSION['usuario'])){
 				data:"idart=" + idarticulo,
 				url:"../procesos/articulos/obtenDatosArticulo.php",
 				success:function(r){
-					
+
 					dato=jQuery.parseJSON(r);
 					$('#idArticulo').val(dato['id_producto']);
 					$('#categoriaSelectU').val(dato['id_categoria']);
@@ -119,7 +122,7 @@ if(isset($_SESSION['usuario'])){
 		}
 
 		function eliminaArticulo(idArticulo){
-			alertify.confirm('¿Desea eliminar este articulo?', function(){ 
+			alertify.confirm('¿Desea eliminar este articulo?', function(){
 				$.ajax({
 					type:"POST",
 					data:"idarticulo=" + idArticulo,
@@ -133,7 +136,7 @@ if(isset($_SESSION['usuario'])){
 						}
 					}
 				});
-			}, function(){ 
+			}, function(){
 				alertify.error('Cancelo !')
 			});
 		}
@@ -186,7 +189,7 @@ if(isset($_SESSION['usuario'])){
 					processData: false,
 
 					success:function(r){
-						
+
 						if(r == 1){
 							$('#frmArticulos')[0].reset();
 							$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
@@ -196,12 +199,12 @@ if(isset($_SESSION['usuario'])){
 						}
 					}
 				});
-				
+
 			});
 		});
 	</script>
 
-	<?php 
+	<?php
 }else{
 	header("location:../index.php");
 }

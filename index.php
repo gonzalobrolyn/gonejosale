@@ -1,5 +1,5 @@
-<?php 
-	
+<?php
+
 	require_once "clases/Conexion.php";
 	$obj= new conectar();
 	$conexion=$obj->conexion();
@@ -21,7 +21,7 @@
 	<script src="librerias/jquery-3.2.1.min.js"></script>
 	<script src="js/funciones.js"></script>
 </head>
-<body style="background-color: gray">
+<body style="background-color: silver">
 	<br><br><br>
 	<div class="container">
 		<div class="row">
@@ -39,10 +39,12 @@
 							<label>Password</label>
 							<input type="password" name="password" id="password" class="form-control input-sm">
 							<p></p>
+							<p style="text-align: center">
 							<span class="btn btn-primary btn-sm" id="entrarSistema">Entrar</span>
 							<?php  if(!$validar): ?>
 							<a href="registro.php" class="btn btn-danger btn-sm">Registrar</a>
 							<?php endif; ?>
+							</p>
 						</form>
 					</div>
 				</div>

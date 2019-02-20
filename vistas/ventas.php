@@ -1,59 +1,174 @@
-<?php 
+
+<?php
 	session_start();
 	if(isset($_SESSION['usuario'])){
-		
+		require_once "menu.php";
+		require_once "../clases/Conexion.php";
+		$c= new conectar();
+		$conexion=$c->conexion();
  ?>
-
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ventas</title>
-	<?php require_once "menu.php"; ?>
+	<title></title>
 </head>
 <body>
 
-	<div class="container">
-		 <h1>Venta de productos</h1>
-		 <div class="row">
-		 	<div class="col-sm-12">
-		 		<span class="btn btn-default" id="ventaProductosBtn">Vender producto</span>
-		 		<span class="btn btn-default" id="ventasHechasBtn">Ventas hechas</span>
-		 	</div>
-		 </div>
-		 <div class="row">
-		 	<div class="col-sm-12">
-		 		<div id="ventaProductos"></div>
-		 		<div id="ventasHechas"></div>
-		 	</div>
-		 </div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-8"><h1>Venta de productos</h1></div>
+			<div class="col-sm-4" style="text-align: right"><a class="btn btn-info" href="clientes.php">Clientes</a> </div>
+		</div>
+
+		<div class="row">
+	   	<div class="col-sm-3">
+	   		<form id="frmVentasProductos">
+	   			<label>Seleciona Cliente</label>
+	   			<select class="form-control input-sm" id="clienteVenta" name="clienteVenta">
+	   				<option value="A">Selecciona</option>
+	   				<option value="0">Sin cliente</option>
+	   				<?php
+	   				$sql="SELECT id_cliente,nombre,apellido
+	   				from clientes";
+	   				$result=mysqli_query($conexion,$sql);
+	   				while ($cliente=mysqli_fetch_row($result)):
+	   					?>
+	   					<option value="<?php echo $cliente[0] ?>"><?php echo $cliente[2]." ".$cliente[1] ?></option>
+	   				<?php endwhile; ?>
+	   			</select>
+	   			<label>Producto</label>
+	   			<select class="form-control input-sm" id="productoVenta" name="productoVenta">
+	   				<option value="A">Selecciona</option>
+	   				<?php
+	   				$sql="SELECT id_producto,
+	   				nombre
+	   				from articulos";
+	   				$result=mysqli_query($conexion,$sql);
+
+	   				while ($producto=mysqli_fetch_row($result)):
+	   					?>
+	   					<option value="<?php echo $producto[0] ?>"><?php echo $producto[1] ?></option>
+	   				<?php endwhile; ?>
+	   			</select>
+	   			<label>Descripcion</label>
+	   			<textarea readonly="" id="descripcionV" name="descripcionV" class="form-control input-sm"></textarea>
+	   			<label>Cantidad</label>
+	   			<input readonly="" type="text" class="form-control input-sm" id="cantidadV" name="cantidadV">
+	   			<label>Precio</label>
+	   			<input readonly="" type="text" class="form-control input-sm" id="precioV" name="precioV">
+	   			<p></p>
+	   			<span class="btn btn-primary" id="btnAgregaVenta">Agregar</span>
+	   			<span class="btn btn-danger" id="btnVaciarVentas">Vaciar ventas</span>
+	   		</form>
+	   	</div>
+	   	<div class="col-sm-2">
+	   		<div id="imgProducto"></div>
+	   	</div>
+	   	<div class="col-sm-7">
+	   		<div id="tablaVentasTempLoad"></div>
+	   	</div>
+	   </div>
+
 	</div>
 </body>
 </html>
-	
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#ventaProductosBtn').click(function(){
-				esconderSeccionVenta();
-				$('#ventaProductos').load('ventas/ventasDeProductos.php');
-				$('#ventaProductos').show();
-			});
-			$('#ventasHechasBtn').click(function(){
-				esconderSeccionVenta();
-				$('#ventasHechas').load('ventas/ventasyReportes.php');
-				$('#ventasHechas').show();
-			});
-		});
 
-		function esconderSeccionVenta(){
-			$('#ventaProductos').hide();
-			$('#ventasHechas').hide();
-		}
+ <script type="text/javascript">
+ 	$(document).ready(function(){
 
-	</script>
+ 		$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
 
-<?php 
-	}else{
-		header("location:../index.php");
-	}
- ?>
+ 		$('#productoVenta').change(function(){
+ 			$.ajax({
+ 				type:"POST",
+ 				data:"idproducto=" + $('#productoVenta').val(),
+ 				url:"../procesos/ventas/llenarFormProducto.php",
+ 				success:function(r){
+ 					dato=jQuery.parseJSON(r);
+
+ 					$('#descripcionV').val(dato['descripcion']);
+ 					$('#cantidadV').val(dato['cantidad']);
+ 					$('#precioV').val(dato['precio']);
+
+ 					$('#imgProducto').prepend('<img class="img-thumbnail" id="imgp" src="' + dato['ruta'] + '" />');
+ 				}
+ 			});
+ 		});
+
+ 		$('#btnAgregaVenta').click(function(){
+ 			vacios=validarFormVacio('frmVentasProductos');
+
+ 			if(vacios > 0){
+ 				alertify.alert("Debes llenar todos los campos!!");
+ 				return false;
+ 			}
+
+ 			datos=$('#frmVentasProductos').serialize();
+ 			$.ajax({
+ 				type:"POST",
+ 				data:datos,
+ 				url:"../procesos/ventas/agregaProductoTemp.php",
+ 				success:function(r){
+ 					$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+ 				}
+ 			});
+ 		});
+
+ 		$('#btnVaciarVentas').click(function(){
+
+ 		$.ajax({
+ 			url:"../procesos/ventas/vaciarTemp.php",
+ 			success:function(r){
+ 				$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+ 			}
+ 		});
+ 	});
+
+ 	});
+ </script>
+
+ <script type="text/javascript">
+ 	function quitarP(index){
+ 		$.ajax({
+ 			type:"POST",
+ 			data:"ind=" + index,
+ 			url:"../procesos/ventas/quitarproducto.php",
+ 			success:function(r){
+ 				$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+ 				alertify.success("Se quito el producto :D");
+ 			}
+ 		});
+ 	}
+
+ 	function crearVenta(){
+ 		$.ajax({
+ 			url:"../procesos/ventas/crearVenta.php",
+ 			success:function(r){
+ 				if(r > 0){
+ 					$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+ 					$('#frmVentasProductos')[0].reset();
+ 					alertify.alert("Venta creada con exito, consulte la informacion de esta en Reportes :D");
+ 				}else if(r==0){
+ 					alertify.alert("No hay lista de venta!!");
+ 				}else{
+ 					alertify.error("No se pudo crear la venta");
+ 				}
+ 			}
+ 		});
+ 	}
+ </script>
+
+ <script type="text/javascript">
+ 	$(document).ready(function(){
+ 		$('#clienteVenta').select2();
+ 		$('#productoVenta').select2();
+
+ 	});
+ </script>
+
+<?php
+ 	}else{
+ 		header("location:../index.php");
+ 	}
+?>

@@ -1,22 +1,21 @@
-<?php 
+
+<?php
 	session_start();
 	if(isset($_SESSION['usuario'])){
-		
+		require_once "menu.php";
  ?>
-
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>inicio</title>
-	<?php require_once "menu.php"; ?>
+	<title></title>
 </head>
 <body>
 
 
 </body>
 </html>
-<?php 
+<?php
 	}else{
 		header("location:../index.php");
 	}

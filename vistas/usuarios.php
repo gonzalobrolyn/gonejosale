@@ -1,18 +1,20 @@
-<?php 
+
+<?php
 session_start();
 if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
+	require_once "menu.php";
 	?>
+
 	<!DOCTYPE html>
 	<html>
 	<head>
-		<title>usuarios</title>
-		<?php require_once "menu.php"; ?>
+		<title></title>
 	</head>
 	<body>
-		<div class="container">
-			<h1>Administrar usuarios</h1>
+		<div class="container-fluid">
+			<h1>Personal</h1>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<form id="frmRegistro">
 						<label>Nombre</label>
 						<input type="text" class="form-control input-sm" name="nombre" id="nombre">
@@ -27,7 +29,7 @@ if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
 
 					</form>
 				</div>
-				<div class="col-sm-7">
+				<div class="col-sm-9">
 					<div id="tablaUsuariosLoad"></div>
 				</div>
 			</div>
@@ -87,7 +89,7 @@ if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
 		}
 
 		function eliminarUsuario(idusuario){
-			alertify.confirm('¿Desea eliminar este usuario?', function(){ 
+			alertify.confirm('¿Desea eliminar este usuario?', function(){
 				$.ajax({
 					type:"POST",
 					data:"idusuario=" + idusuario,
@@ -101,7 +103,7 @@ if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
 						}
 					}
 				});
-			}, function(){ 
+			}, function(){
 				alertify.error('Cancelo !')
 			});
 		}
@@ -167,7 +169,7 @@ if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
 		});
 	</script>
 
-	<?php 
+	<?php
 }else{
 	header("location:../index.php");
 }
