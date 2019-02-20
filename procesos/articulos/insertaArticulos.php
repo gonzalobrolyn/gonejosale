@@ -1,4 +1,4 @@
-<?php 
+<?php
 	session_start();
 	$iduser=$_SESSION['iduser'];
 	require_once "../../clases/Conexion.php";
@@ -7,7 +7,7 @@
 	$obj= new articulos();
 
 	$datos=array();
-	
+
 	$nombreImg=$_FILES['imagen']['name'];
 	$rutaAlmacenamiento=$_FILES['imagen']['tmp_name'];
 	$carpeta='../../archivos/';
@@ -30,7 +30,8 @@
 					$datos[3]=$_POST['nombre'];
 					$datos[4]=$_POST['descripcion'];
 					$datos[5]=$_POST['cantidad'];
-					$datos[6]=$_POST['precio'];
+					$datos[6]=$_POST['precioBase'];
+					$datos[7]=$_POST['precioVenta'];
 					echo $obj->insertaArticulo($datos);
 				}else{
 					echo 0;

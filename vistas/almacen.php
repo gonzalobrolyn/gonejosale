@@ -35,7 +35,7 @@ if(isset($_SESSION['usuario'])){
 						<label>Nombre</label>
 						<input type="text" class="form-control input-sm" id="nombre" name="nombre">
 						<label>Descripcion</label>
-						<textarea class="form-control input-sm" id="descripcion" name="descripcion" rows="5"></textarea>
+						<textarea class="form-control input-sm" id="descripcion" name="descripcion" rows="4"></textarea>
 						<label>Cantidad</label>
 						<input type="text" class="form-control input-sm" id="cantidad" name="cantidad">
 						<label>Precio Base</label>
@@ -82,16 +82,17 @@ if(isset($_SESSION['usuario'])){
 							<label>Nombre</label>
 							<input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
 							<label>Descripcion</label>
-							<input type="text" class="form-control input-sm" id="descripcionU" name="descripcionU">
+							<textarea rows="3" class="form-control input-sm" id="descripcionU" name="descripcionU"></textarea>
 							<label>Cantidad</label>
 							<input type="text" class="form-control input-sm" id="cantidadU" name="cantidadU">
-							<label>Precio</label>
-							<input type="text" class="form-control input-sm" id="precioU" name="precioU">
-
+							<label>Precio Base</label>
+							<input type="text" class="form-control input-sm" id="precioBaseU" name="precioBaseU">
+							<label>Precio Venta</label>
+							<input type="text" class="form-control input-sm" id="precioVentaU" name="precioVentaU">
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button id="btnActualizaarticulo" type="button" class="btn btn-warning" data-dismiss="modal">Actualizar</button>
+						<button id="btnActualizaarticulo" type="button" class="btn btn-success" data-dismiss="modal">Actualizar</button>
 
 					</div>
 				</div>
@@ -115,8 +116,8 @@ if(isset($_SESSION['usuario'])){
 					$('#nombreU').val(dato['nombre']);
 					$('#descripcionU').val(dato['descripcion']);
 					$('#cantidadU').val(dato['cantidad']);
-					$('#precioU').val(dato['precio']);
-
+					$('#precioBaseU').val(dato['precioBase']);
+					$('#precioVentaU').val(dato['precioVenta']);
 				}
 			});
 		}

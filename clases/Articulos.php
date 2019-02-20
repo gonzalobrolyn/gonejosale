@@ -1,6 +1,6 @@
 
 
-<?php 
+<?php
 	class articulos{
 		public function agregaImagen($datos){
 			$c=new conectar();
@@ -32,8 +32,9 @@
 										nombre,
 										descripcion,
 										cantidad,
-										precio,
-										fechaCaptura) 
+										precioBase,
+										precioVenta,
+										fechaCaptura)
 							values ('$datos[0]',
 									'$datos[1]',
 									'$datos[2]',
@@ -41,6 +42,7 @@
 									'$datos[4]',
 									'$datos[5]',
 									'$datos[6]',
+									'$datos[7]',
 									'$fecha')";
 			return mysqli_query($conexion,$sql);
 		}
@@ -49,13 +51,14 @@
 			$c=new conectar();
 			$conexion=$c->conexion();
 
-			$sql="SELECT id_producto, 
-						id_categoria, 
+			$sql="SELECT id_producto,
+						id_categoria,
 						nombre,
 						descripcion,
 						cantidad,
-						precio 
-				from articulos 
+						precioBase,
+						precioVenta
+				from articulos
 				where id_producto='$idarticulo'";
 			$result=mysqli_query($conexion,$sql);
 
@@ -67,7 +70,8 @@
 					"nombre" => $ver[2],
 					"descripcion" => $ver[3],
 					"cantidad" => $ver[4],
-					"precio" => $ver[5]
+					"precioBase" => $ver[5],
+					"precioVenta" => $ver[6]
 						);
 
 			return $datos;
@@ -77,12 +81,14 @@
 			$c=new conectar();
 			$conexion=$c->conexion();
 
-			$sql="UPDATE articulos set id_categoria='$datos[1]', 
-										nombre='$datos[2]',
-										descripcion='$datos[3]',
-										cantidad='$datos[4]',
-										precio='$datos[5]'
-						where id_producto='$datos[0]'";
+			$sql="UPDATE articulos
+						set id_categoria='$datos[1]',
+							 nombre='$datos[2]',
+							 descripcion='$datos[3]',
+							 cantidad='$datos[4]',
+							 precioBase='$datos[5]',
+							 precioVenta='$datos[6]'
+					 where id_producto='$datos[0]'";
 
 			return mysqli_query($conexion,$sql);
 		}
@@ -93,14 +99,14 @@
 
 			$idimagen=self::obtenIdImg($idarticulo);
 
-			$sql="DELETE from articulos 
+			$sql="DELETE from articulos
 					where id_producto='$idarticulo'";
 			$result=mysqli_query($conexion,$sql);
 
 			if($result){
 				$ruta=self::obtenRutaImagen($idimagen);
 
-				$sql="DELETE from imagenes 
+				$sql="DELETE from imagenes
 						where id_imagen='$idimagen'";
 				$result=mysqli_query($conexion,$sql);
 					if($result){
@@ -115,8 +121,8 @@
 			$c= new conectar();
 			$conexion=$c->conexion();
 
-			$sql="SELECT id_imagen 
-					from articulos 
+			$sql="SELECT id_imagen
+					from articulos
 					where id_producto='$idProducto'";
 			$result=mysqli_query($conexion,$sql);
 
@@ -127,8 +133,8 @@
 			$c= new conectar();
 			$conexion=$c->conexion();
 
-			$sql="SELECT ruta 
-					from imagenes 
+			$sql="SELECT ruta
+					from imagenes
 					where id_imagen='$idImg'";
 
 			$result=mysqli_query($conexion,$sql);
