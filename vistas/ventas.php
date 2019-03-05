@@ -52,11 +52,13 @@
 	   				<?php endwhile; ?>
 	   			</select>
 	   			<label>Descripcion</label>
-	   			<textarea readonly="" id="descripcionV" name="descripcionV" class="form-control input-sm"></textarea>
-	   			<label>Cantidad</label>
+	   			<textarea readonly="" id="descripcionV" name="descripcionV" class="form-control input-sm" rows="3"></textarea>
+	   			<label>En Stock</label>
 	   			<input readonly="" type="text" class="form-control input-sm" id="cantidadV" name="cantidadV">
-	   			<label>Precio</label>
-	   			<input readonly="" type="text" class="form-control input-sm" id="precioV" name="precioV">
+					<label>Cantidad</label>
+	   			<input type="text" class="form-control input-sm" id="cantVenta" name="cantVenta">
+	   			<label>Precio Venta</label>
+					<input type="text" class="form-control input-sm" id="precioV" name="precioV">
 	   			<p></p>
 	   			<span class="btn btn-primary" id="btnAgregaVenta">Agregar</span>
 	   			<span class="btn btn-danger" id="btnVaciarVentas">Vaciar ventas</span>
@@ -89,7 +91,8 @@
 
  					$('#descripcionV').val(dato['descripcion']);
  					$('#cantidadV').val(dato['cantidad']);
- 					$('#precioV').val(dato['precio']);
+					$('#cantVenta').val(dato['']);
+ 					$('#precioV').val(dato['precioVenta']);
 
  					$('#imgProducto').prepend('<img class="img-thumbnail" id="imgp" src="' + dato['ruta'] + '" />');
  				}

@@ -5,11 +5,11 @@ class ventas{
 		$c=new conectar();
 		$conexion=$c->conexion();
 
-		$sql="SELECT art.nombre,
-						 art.descripcion,
+		$sql="SELECT art.descripcion,
 						 art.cantidad,
 						 img.ruta,
-						 art.precio
+						 art.precioBase,
+						 art.precioVenta
 				  from articulos as art
 		  inner join imagenes as img
 					 on art.id_imagen=img.id_imagen
@@ -17,15 +17,14 @@ class ventas{
 		$result=mysqli_query($conexion,$sql);
 
 		$ver=mysqli_fetch_row($result);
-		$d=explode('/', $ver[3]);
+		$d=explode('/', $ver[2]);
 		$img=$d[1].'/'.$d[2].'/'.$d[3];
 
 		$data=array(
-			'nombre' => $ver[0],
-			'descripcion' => $ver[1],
-			'cantidad' => $ver[2],
+			'descripcion' => $ver[3].' '.$ver[0],
+			'cantidad' => $ver[1],
 			'ruta' => $img,
-			'precio' => $ver[4]
+			'precioVenta' => $ver[4]
 		);
 		return $data;
 	}
@@ -47,20 +46,21 @@ class ventas{
 									id_venta,
 									id_cliente,
 									id_producto,
-									id_usuario,
+									cantidad,
 									precio,
+									id_usuario,
 									fechaCompra)
 						 values ('$idventa',
-									'$d[5]',
+									'$d[6]',
 									'$d[0]',
-									'$idusuario',
 									'$d[3]',
+									'$d[2]',
+									'$idusuario',
 									'$fecha')";
 			$r=$r + $result=mysqli_query($conexion,$sqlVentas);
-			$cantidad = 0;
-			$cantidad = $d[6]-1;
+
 			$sqlAlmacen="UPDATE articulos set
-									  cantidad='$cantidad'
+									  cantidad='$d[4]'
 							  where id_producto='$d[0]'";
 
 			$r2 = mysqli_query($conexion,$sqlAlmacen);
@@ -104,7 +104,7 @@ class ventas{
 		$c= new conectar();
 		$conexion=$c->conexion();
 
-		$sql="SELECT precio
+		$sql="SELECT cantidad, precio
 				from ventas
 				where id_venta='$idventa'";
 		$result=mysqli_query($conexion,$sql);
@@ -112,7 +112,7 @@ class ventas{
 		$total=0;
 
 		while($ver=mysqli_fetch_row($result)){
-			$total=$total + $ver[0];
+			$total=$total + $ver[0]*$ver[1];
 		}
 
 		return $total;

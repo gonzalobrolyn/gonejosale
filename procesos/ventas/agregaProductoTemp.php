@@ -9,6 +9,7 @@
 	$idproducto=$_POST['productoVenta'];
 	$descripcion=$_POST['descripcionV'];
 	$cantidad=$_POST['cantidadV'];
+	$cantVenta=$_POST['cantVenta'];
 	$precio=$_POST['precioV'];
 
 	$sql="SELECT nombre,apellido
@@ -27,13 +28,15 @@
 
 	$nombreproducto=mysqli_fetch_row($result)[0];
 
+	$nuevaCant = $cantidad - $cantVenta;
+
 	$articulo=$idproducto."||".
 				$nombreproducto."||".
-				$descripcion."||".
 				$precio."||".
+				$cantVenta."||".
+				$nuevaCant."||".
 				$ncliente."||".
-				$idcliente."||".
-				$cantidad;
+				$idcliente;
 
 	$_SESSION['tablaComprasTemp'][]=$articulo;
 

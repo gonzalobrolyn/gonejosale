@@ -12,10 +12,10 @@
  		</span>
  	</caption>
  	<tr>
- 		<td><b>Nombre</b></td>
- 		<td><b>Descripcion</b></td>
- 		<td><b>Precio</b></td>
- 		<td><b>Cantidad</b></td>
+ 		<td><b>Cant.</b></td>
+		<td><b>Nombre</b></td>
+ 		<td><b>P. Und.</b></td>
+		<td><b>Importe</b></td>
  		<td><b>Quitar</b></td>
  	</tr>
  	<?php
@@ -26,13 +26,14 @@
  			foreach (@$_SESSION['tablaComprasTemp'] as $key) {
 
  				$d=explode("||", @$key);
+
  	 ?>
 
  	<tr>
- 		<td><?php echo $d[1] ?></td>
- 		<td><?php echo $d[2] ?></td>
- 		<td><?php echo $d[3] ?></td>
- 		<td><?php echo 1; ?></td>
+ 		<td><?php echo $d[3]; ?></td>
+		<td><?php echo $d[1]; ?></td>
+		<td><?php echo $d[2]; ?></td>
+		<td><?php echo $d[2]*$d[3]; ?></td>
  		<td>
  			<span class="btn btn-danger btn-xs" onclick="quitarP('<?php echo $i; ?>')">
  				<span class="glyphicon glyphicon-remove"></span>
@@ -41,15 +42,15 @@
  	</tr>
 
  <?php
- 		$total=$total + $d[3];
+ 		$total=$total + $d[2]*$d[3];
  		$i++;
- 		$cliente=$d[4];
+ 		$cliente=$d[5];
  	}
  	endif;
  ?>
 
  	<tr>
-		<td colspan="2">Total de venta:</td>
+		<td colspan="2" style="text-align: right">Total de venta:</td>
  		<td colspan="2"><?php echo "S/ ".$total; ?></td>
  	</tr>
 

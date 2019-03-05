@@ -12,9 +12,10 @@
    	$obj= new ventas();
 
    	$sql="SELECT id_venta,
-   				fechaCompra,
-   				id_cliente
-   			from ventas group by id_venta";
+   					 fechaCompra,
+   					 id_cliente
+   			  from ventas
+			 group by id_venta desc";
    	$result=mysqli_query($conexion,$sql);
 
  ?>
@@ -38,6 +39,7 @@
       					<td><b>Fecha</b></td>
       					<td><b>Cliente</b></td>
       					<td><b>Total de compra</b></td>
+							<td><b>Boleta</b></td>
 
       				</tr>
       		<?php while($ver=mysqli_fetch_row($result)): ?>
@@ -58,6 +60,11 @@
       							echo "S/ ".$obj->obtenerTotal($ver[0]);
       						 ?>
       					</td>
+							<td>
+								<a href="../procesos/ventas/crearReportePdf.php?idventa=<?php echo $ver[0]; ?>" class="btn btn-danger btn-sm">
+									<span class="glyphicon glyphicon-file"></span>
+								</a>
+							</td>
 
       				</tr>
       		<?php endwhile; ?>
