@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
+if(isset($_SESSION['usuario']) and $_SESSION['iduser']==1){
 	require_once "menu.php";
 	?>
 

@@ -90,7 +90,7 @@ class ventas{
 		$c= new conectar();
 		$conexion=$c->conexion();
 
-		 $sql="SELECT apellido,nombre
+		 $sql="SELECT nombre, apellido
 			from clientes
 			where id_cliente='$idCliente'";
 		$result=mysqli_query($conexion,$sql);

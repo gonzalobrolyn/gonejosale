@@ -19,25 +19,20 @@
 
    while($ver=mysqli_fetch_row($result)):
 ?>
-   <div class="col-sm-2">
-      <div class="table-responsive">
-         <table class="table table-hover">
-
-               <tr>
-                  <td>
-                     <?php
-                     $imgVer=explode("/", $ver[4]) ;
-                     $imgruta=$imgVer[1]."/".$imgVer[2]."/".$imgVer[3];
-                     ?>
-                     <img class="img-responsive" src="<?php echo $imgruta ?>">
-                  </td>
-               </tr>
-               <tr>
-                  <td><?php echo $ver[1]; ?><br>
-                  <?php echo "S/ ".$ver[3]; ?></td>
-               </tr>
-
-         </table>
+  <div class="col-sm-3">
+    <div class="thumbnail">
+			<?php
+			$imgVer=explode("/", $ver[4]) ;
+			$imgruta=$imgVer[1]."/".$imgVer[2]."/".$imgVer[3];
+			?>
+			<img width="210" height="210" src="<?php echo $imgruta ?>">
+      <div class="caption">
+			  <p><?php echo $ver[1]; ?></p>
+				<p style="text-align: center">
+						<h4 style="text-align: center"><?php echo "S/ ".$ver[3].".00"; ?></h4>
+				</p>
       </div>
-   </div>
+    </div>
+  </div>
+
 <?php endwhile; ?>

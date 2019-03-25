@@ -15,7 +15,8 @@
 		  inner join imagenes as img
 		  on art.id_imagen=img.id_imagen
 		  inner join categorias as cat
-		  on art.id_categoria=cat.id_categoria";
+		  on art.id_categoria=cat.id_categoria
+			order by art.id_producto desc";
 	$result=mysqli_query($conexion,$sql);
 
  ?>

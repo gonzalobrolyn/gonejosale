@@ -4,7 +4,7 @@
 	$obj= new conectar();
 	$conexion=$obj->conexion();
 
-	$sql="SELECT * from usuarios where email='admin'";
+	$sql="SELECT * from usuarios where id_usuario=1";
 	$result=mysqli_query($conexion,$sql);
 	$validar=0;
 	if(mysqli_num_rows($result) > 0){
@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login de usuario</title>
+	<title>GonejoLab</title>
 	<link rel="stylesheet" type="text/css" href="librerias/bootstrap/css/bootstrap.css">
 	<script src="librerias/jquery-3.2.1.min.js"></script>
 	<script src="js/funciones.js"></script>

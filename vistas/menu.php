@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Padi</title>
+  <title>GonejoLab</title>
 </head>
 <body>
 
@@ -28,22 +28,20 @@
                   <a href="ventas.php"><span class="glyphicon glyphicon-usd"></span> Ventas</a>
                </li>
 
-               <?php if($_SESSION['usuario']=="admin"): ?>
+               <?php if($_SESSION['iduser']==1): ?>
                   <li>
                      <a href="usuarios.php"><span class="glyphicon glyphicon-user"></span> Personal</a>
                   </li>
                   <li>
                      <a href="almacen.php"><span class="glyphicon glyphicon-th-list"></span> Almacen</a>
-                  </li>
-                  <li>
-                     <a href="reportes.php"><span class="glyphicon glyphicon-stats"></span> Reporte</a>
-                  </li>
+                  </li>                  
                <?php endif; ?>
-
+               <li>
+                  <a href="reportes.php"><span class="glyphicon glyphicon-stats"></span> Reporte</a>
+               </li>
                <li class="dropdown" >
                   <a href="#" style="color: red"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                     <span class="glyphicon glyphicon-user"></span>
-                     User: <?php echo $_SESSION['usuario']; ?>
+                     Usuario: <?php echo $_SESSION['usuario']; ?>
                      <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
@@ -58,6 +56,6 @@
       </div>
       <!--/.contatiner -->
    </nav>
-
+   <br>
 </body>
 </html>
