@@ -18,7 +18,7 @@ function file_get_contents_curl($url) {
     return $data;
 }
 
- $html=file_get_contents("http://localhost/ventas2/vistas/ventas/rerpoteVentaPdf.php?idventa=".$id);
+ $html=file_get_contents("http://localhost/gonejosale/vistas/ventas/rerpoteVentaPdf.php?idventa=".$id);
 
 // Instanciamos un objeto de la clase DOMPDF.
 $pdf = new DOMPDF();
